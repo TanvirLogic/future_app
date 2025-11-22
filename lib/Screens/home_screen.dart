@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:future_app/app_utils/image_utils.dart';
+import 'package:future_app/controllers/item_card_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../custom_widgets/my_item_card.dart';
-import '../custom_widgets/product_container.dart';
+import 'item_screens/all_item_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ImageUtils.jeansIcon,
   ];
   final List<String> _imageTexts = ['All Items', 'Dresses', 'Shirts', 'Jeans'];
+  final int _selectedScreenIndex   = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -85,50 +88,42 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             // Item Widgets
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-              child: SizedBox(
-                height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        // primary: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _imagePaths.length,
-                        itemBuilder: (context, index) => MyItemCard(
-                          onTap: (){},
-                          iconPath: _imagePaths[index],
-                          text: _imageTexts[index],
+            ChangeNotifierProvider(
+              create: (_) => ItemCardProvider(), // 👈 Provider is here, only one instance created
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                child: SizedBox(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _imagePaths.length,
+                            // No need for Consumer here, MyItemCard uses context.watch
+                            itemBuilder: (context, index) {
+                              return MyItemCard(
+                                // We removed onTap from MyItemCard, its logic is now inside
+                                iconPath: _imagePaths[index],
+                                text: _imageTexts[index],
+                                index: index,
+                              );
+                            }
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
 
             SizedBox(height: 20),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(4.0),
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Number of columns
-                    crossAxisSpacing: 8.0, // Spacing between columns
-                    mainAxisSpacing: 8.0, // Spacing between rows
-                    mainAxisExtent: 310,
-                  ),
-                  itemCount: 20, // Total 20 items
-                  itemBuilder: (BuildContext context, int index) {
-                    return ProductContainer();
-                  },
-                ),
-              ),
-            ),
+            AllItemScreen(),
           ],
         ),
       ),
     );
   }
 }
+
+
