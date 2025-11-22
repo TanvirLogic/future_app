@@ -3,8 +3,8 @@ import 'package:future_app/Screens/cart_screen.dart';
 import 'package:future_app/Screens/favourite_screen.dart';
 import 'package:future_app/Screens/home_screen.dart';
 import 'package:future_app/Screens/profile_screen.dart';
-import 'package:future_app/app_utils/app_utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:future_app/app_utils/color_utils.dart';
 
 import '../app_utils/image_utils.dart';
 import '../custom_widgets/my_nav_bar_custom_icon.dart';
@@ -37,15 +37,16 @@ class _MainNavBarHolderScreenState extends State<MainNavBarHolderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       // backgroundColor: AppUtils.backGroundColor,
       body: SafeArea(child: _screens[_selectedIndex]),
       bottomNavigationBar: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(20.0),
             child: Container(
               decoration: BoxDecoration(
-                color: AppUtils.navBarColor,
+                color: ColorUtils.navBarColor,
                 borderRadius: BorderRadius.circular(30),
               ),
               height: 70,
