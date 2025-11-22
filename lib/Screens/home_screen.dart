@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:future_app/app_utils/color_utils.dart';
 import 'package:future_app/app_utils/image_utils.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../custom_widgets/my_item_card.dart';
 import '../custom_widgets/product_container.dart';
@@ -34,10 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             SizedBox(height: 25),
+            // Welcome Widgets
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            // SizedBox(height: 5),
+            // Search Box Widgets
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -86,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            // Item Widgets
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               child: SizedBox(
@@ -98,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         itemCount: _imagePaths.length,
                         itemBuilder: (context, index) => MyItemCard(
+                          onTap: (){},
                           iconPath: _imagePaths[index],
                           text: _imageTexts[index],
                         ),
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 20),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(4.0),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Number of columns

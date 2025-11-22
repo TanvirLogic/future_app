@@ -22,10 +22,19 @@ class ProductContainer extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
               ),
-              child: Image.asset(
-                ImageUtils.firstProductImage,
-                fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  Image.asset(ImageUtils.firstProductImage, fit: BoxFit.cover),
+                  Positioned(
+                    right: 1,
+                    bottom: 210,
+                    left: 120,
+                    child: Icon(Icons.favorite_border),
+                  ),
+                ],
               ),
             ),
           ),
@@ -62,13 +71,8 @@ class ProductContainer extends StatelessWidget {
                       Row(
                         children: [
                           Icon(Icons.star, color: Colors.amber, size: 20),
+                          SizedBox(width: 5),
                           Text('4.5'),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.favorite_border, size: 20),
-                            padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
-                          ),
                         ],
                       ),
                     ],
